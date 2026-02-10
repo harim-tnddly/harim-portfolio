@@ -13,7 +13,7 @@ const HumanParticle = () => {
         const ctx = canvas.getContext('2d');
         let animationFrameId;
         let particles = [];
-        const particleCount = 75000;
+        const particleCount = 22000;
 
         // Interaction event listeners
         const handleMouseMove = (e) => {
