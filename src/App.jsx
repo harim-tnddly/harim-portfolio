@@ -18,12 +18,27 @@ function App() {
   const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
-    // [FIX] Simple & Robust Timer: Show header exactly after 5 seconds
+    // 1. Force Scroll to Top on Refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // 2. Lock Scroll during Intro
+    document.body.style.overflow = 'hidden';
+
+    // 3. Unlock Scroll & Show Header after Intro (3s)
+    // Particle delay is ~2s + formation time ~0.5s = 2.5s.
+    // Giving 3s total for a clean experience.
     const timer = setTimeout(() => {
       setShowHeader(true);
-    }, 5000);
+      document.body.style.overflow = 'unset'; // Unlock scroll
+    }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = 'unset'; // Cleanup
+    };
   }, []);
 
   return (

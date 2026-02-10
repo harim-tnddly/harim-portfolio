@@ -36,3 +36,23 @@
     isolation: isolate;
     /* Create stacking context */
 }
+
+/* Nav Color Logic */
+:root {
+    --nav-color: #ffffff;
+}
+
+.nav-item {
+    color: var(--nav-color) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-item.active {
+    color: #ffffff !important;
+}
+
+.contact-btn {
+    color: var(--nav-color) !important;
+    border-color: var(--nav-color) !important;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
