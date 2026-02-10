@@ -21,7 +21,7 @@ const ParticleText = () => {
             mouseRadius: 80,
             forceMultiplier: 5, // interaction strength
             returnSpeed: 0.1,   // speed to return to text shape
-            formationDelay: 3500, // ms before text starts forming
+            formationDelay: 2000, // Reduced to 2.5s per request
             fontSize: 300,
             fontFamily: 'Anton, sans-serif'
         };
