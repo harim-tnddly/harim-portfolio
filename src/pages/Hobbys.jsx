@@ -1,12 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hobbys.css';
 
-const Hobbys = () => {
-    // Dynamic import for hobby images and background
-    const hobbyAssets = import.meta.glob('../assets/img/hobbys/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
+gsap.registerPlugin(ScrollTrigger);
 
-    // Get background image
-    const bgImage = Object.values(hobbyAssets).find(src => src.includes('bg_hobbys'));
+const Hobbys = () => {
+    // Dynamic import for hobby images
+    const hobbyAssets = import.meta.glob('../assets/img/hobbys/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
 
     // Helper to find image by key (e.g., 'travel' -> 'travel.png' or 'travel.jpg')
     const getImage = (name) => {
@@ -80,34 +82,111 @@ const Hobbys = () => {
         }
     ];
 
-    // Horizontal Scroll Logic
+    // Horizontal Scroll Logic with GSAP ScrollTrigger
+    const sectionRef = useRef(null);
     const scrollContainerRef = useRef(null);
 
-    useEffect(() => {
+    useGSAP(() => {
         const container = scrollContainerRef.current;
-        if (!container) return;
+        const section = sectionRef.current;
+        if (!container || !section) return;
 
-        const handleWheel = (evt) => {
-            evt.preventDefault();
-            container.scrollLeft += evt.deltaY;
+        // Determine scroll distance: Total width - Viewport width
+        const getScrollAmount = () => {
+            let measureWidth = container.offsetWidth;
+            if (measureWidth < window.innerWidth) measureWidth = container.scrollWidth;
+            return measureWidth - window.innerWidth;
         };
 
-        container.addEventListener('wheel', handleWheel, { passive: false });
-        return () => container.removeEventListener('wheel', handleWheel);
-    }, []);
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: scrollContainerRef.current, // Trigger based on the container
+                pin: section, // Pin the whole section
+                scrub: 1,
+                start: "center center", // Start when container center meets viewport center
+                end: () => `+=${getScrollAmount() + 500}`,
+                invalidateOnRefresh: true,
+            }
+        });
+
+        // Horizontal Scroll
+        tl.to(container, {
+            x: () => -getScrollAmount(),
+            ease: "none",
+        });
+
+        // Background Color & Text Color Transition
+        // Triggered when section enters viewport
+        gsap.fromTo(section,
+            { backgroundColor: "#141414", color: "#FFFFFF" },
+            {
+                backgroundColor: "#ffffff",
+                color: "#141414",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "top top",
+                    scrub: true,
+                }
+            }
+        );
+
+        // Animate only the main title to black
+        gsap.to(".hobbys-title", {
+            color: "#141414",
+            scrollTrigger: {
+                trigger: section,
+                start: "top bottom",
+                end: "top top",
+                scrub: true,
+            }
+        });
+
+        // Strict Nav Color Logic: Only Dark when section is effectively at top
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 5%",
+            end: "bottom 5%",
+            onEnter: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
+            onLeave: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true }),
+            onEnterBack: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
+            onLeaveBack: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true })
+        });
+
+        // 2. Handle Bottom Exit (Leaving to next section) logic merged above or separate?
+        // The above handles the general section bounds (if not pinned).
+        // BUT Hobbys is PINNED by a separate trigger.
+        // If we use 'section' based trigger, 'end' refers to unpinned height.
+        // If the section is pinned, "bottom" of section is reached only after pin duration?
+        // The PIN trigger handles the scroll timeline.
+        // We generally want nav to be dark WHILE PINNED too.
+        // Pin trigger: trigger: scrollContainerRef.current, end: +=scrollAmount.
+        // We should sync Nav Color with the PIN DURATION.
+
+        ScrollTrigger.create({
+            trigger: scrollContainerRef.current,
+            start: "top 5%", // Matches when Pin starts??
+            // Pin start is "center center" in code (line 106).
+            // "center center" means section is vertically centered.
+            // If section is centered, header (top) might not be at 5%.
+            // If Hobbys is full height, center-center implies top is at 0 (if viewport fits).
+            // Let's assume top 5% is safe.
+            end: () => `+=${getScrollAmount() + 500}`, // Match pin duration
+            onEnter: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
+            onLeave: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true }),
+            onEnterBack: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
+            onLeaveBack: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true })
+        });
+
+    }, { scope: sectionRef });
 
     return (
-        <section className="hobbys-section" id="hobbys">
-            {/* Background Image Layer */}
-            <div className="hobbys-bg-layer">
-                {bgImage && <img src={bgImage} alt="Hobbys Background" className="hobbys-bg-img" />}
-                <div className="hobbys-bg-overlay"></div>
-            </div>
-
+        <section className="hobbys-section" id="hobbys" ref={sectionRef}>
             <h1 className="hobbys-title">Hobbys</h1>
 
-            <div className="hobbys-scroll-area" ref={scrollContainerRef}>
-                <div className="hobbys-container">
+            <div className="hobbys-scroll-area">
+                <div className="hobbys-container" ref={scrollContainerRef}>
                     {hobbyItems.map((item, index) => (
                         <div
                             key={item.id}

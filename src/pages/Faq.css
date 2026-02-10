@@ -117,7 +117,7 @@
 /* 실루엣이 담길 부모 영역 */
 .faq-visual-side {
     width: 50%;
-    height: 1200px;
+    height: 1750px;
     /* 고정 높이 확보 */
     position: sticky;
     top: 50px;
@@ -126,7 +126,7 @@
     align-items: center;
     z-index: 5;
     /* 중요: 이 영역을 기준으로 자식들이 배치되어야 함 */
-    position: relative !important;
+    /* position: relative !important; REMOVED per user request */
     overflow: hidden;
     /* Added to keep particles contained */
 }

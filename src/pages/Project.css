@@ -170,7 +170,7 @@
 }
 
 .planet-node img {
-    width: 100px;
+    width: 80px;
     /* Default size for all planets */
     transition: width 0.3s ease;
 }
@@ -216,10 +216,11 @@
 /* Active State Styling */
 .planet-node.active {
     z-index: 10;
+    top: 78%;
 }
 
 .planet-node.active img {
-    width: 150px;
+    width: 100px;
     /* Active planet is larger */
 }
 

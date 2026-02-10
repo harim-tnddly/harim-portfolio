@@ -1,5 +1,7 @@
 /* Process Section */
 .process-section {
+    display: none;
+    /* Hidden per request */
     position: relative;
     width: 100%;
     height: 1740px;
@@ -10,7 +12,8 @@
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
-    display: flex;
+    display: none;
+    /* Force hide */
     justify-content: center;
     align-items: center;
     color: #fff;

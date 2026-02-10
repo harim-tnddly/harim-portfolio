@@ -1,9 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Faq.css';
 import HumanParticle from './HumanParticle';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Faq = () => {
     const [activeIndex, setActiveIndex] = useState(null);
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+        const section = containerRef.current;
+        if (!section) return;
+
+        // Select specific element in scope
+        const visual = section.querySelector(".faq-visual-side");
+        if (!visual) return;
+
+        // Force initial state: Right 30%
+        gsap.set(visual, { xPercent: 30 });
+
+        // ScrollTrigger with direct tweens and overwrite protection
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 5%",
+            end: "bottom 5%",
+            onEnter: () => {
+                // Nav -> Dark
+                gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true });
+                // Visual -> 0 (Delay 1s)
+                gsap.to(visual, {
+                    xPercent: 0,
+                    duration: 1.0,
+                    delay: 1,
+                    ease: "power3.out",
+                    overwrite: "auto",
+                });
+            },
+            onLeave: () => {
+                // Nav -> Light
+                gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true });
+                // Visual -> 30
+                gsap.to(visual, {
+                    xPercent: 30,
+                    duration: 0.5,
+                    ease: "power3.in",
+                    overwrite: "auto",
+                });
+            },
+            onEnterBack: () => {
+                // Nav -> Dark
+                gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true });
+                // Visual -> 0 (Delay 1s)
+                gsap.to(visual, {
+                    xPercent: 0,
+                    duration: 1.0,
+                    delay: 1,
+                    ease: "power3.out",
+                    overwrite: "auto",
+                });
+            },
+            onLeaveBack: () => {
+                // Nav -> Light
+                gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true });
+                // Visual -> 30
+                gsap.to(visual, {
+                    xPercent: 30,
+                    duration: 0.5,
+                    ease: "power3.in",
+                    overwrite: "auto",
+                });
+            },
+        });
+    }, { scope: containerRef });
 
     const faqData = [
         {
@@ -33,7 +104,7 @@ const Faq = () => {
     ];
 
     return (
-        <section className="faq-section" id="faq">
+        <section className="faq-section" id="faq" ref={containerRef}>
             <h1 className="faq-title">FAQ</h1>
 
             <div className="faq-content-wrapper">

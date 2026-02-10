@@ -102,7 +102,7 @@ const Project = () => {
     const getPlanetStyle = (startAngle) => {
         const angle = (startAngle + rotation) * (Math.PI / 180); // Convert to radians
         const rx = 45; // Horizontal Radius (%)
-        const ry = 38; // Vertical Radius (%)
+        const ry = 28; // Vertical Radius (%) - Adjusted from 38 to 28 so bottom is 78%
 
         // Calculate percentages
         const x = 50 + rx * Math.cos(angle);

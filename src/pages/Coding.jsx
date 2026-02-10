@@ -186,59 +186,21 @@ const Coding = () => {
 
         const tl = gsap.timeline();
 
-        // 1. Split Text Animation for Number
-        // We select the characters we rendered manually
-        tl.fromTo('.coding-project-number .char',
-            { y: 100, opacity: 0 },
+        // Simple Slide Up & Fade In Animation for Text
+        const targets = ['.coding-project-number', '.project-name', '.coding-project-desc'];
+
+        tl.fromTo(targets,
+            { y: 50, opacity: 0 },
             {
                 y: 0,
                 opacity: 1,
-                duration: 0.8,      // [속도 조절] 숫자가 올라오는 시간 (초)
-                ease: 'power4.out',
-                stagger: 0.05       // [간격 조절] 글자 사이의 시차 (0.05초)
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.1
             }
         );
 
-        // 2. Title Animation
-        tl.fromTo('.project-name .char',
-            { y: 100, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,      // [속도 조절] 제목 애니메이션 시간
-                ease: 'power4.out',
-                stagger: 0.03       // [간격 조절] 제목 글자 사이 간격
-            },
-            "-=0.6"
-        );
-
-        // 3. Desc Animation
-        tl.fromTo('.coding-project-desc .char',
-            { y: 20, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.5,      // [속도 조절] 설명 텍스트 애니메이션 시간
-                ease: 'power2.out',
-                stagger: 0.01       // [간격 조절] 설명 글자 사이 간격 (빠르게)
-            },
-            "-=0.6"
-        );
-
     }, { scope: containerRef, dependencies: [activeItem.id] });
-
-    // Helper to split text into chars, handling newlines and trimming indentation
-    const renderSplitText = (text) => {
-        return String(text).split('\n').map((line, lineIdx) => (
-            <span key={lineIdx} style={{ display: 'block' }}>
-                {line.trim().split('').map((char, charIdx) => (
-                    <span key={charIdx} className="char" style={{ display: 'inline-block', minWidth: char === ' ' ? '5px' : 'auto' }}>
-                        {char === ' ' ? '\u00A0' : char}
-                    </span>
-                ))}
-            </span>
-        ));
-    };
 
     return (
         <section className="coding-section" id="coding" ref={containerRef}>
@@ -373,18 +335,18 @@ const Coding = () => {
                         <div className="project-header-group">
                             <div className="mask-box">
                                 <span className="coding-project-number" key={`num-${activeItem.id}`}>
-                                    {renderSplitText(String(activeItem.id).padStart(2, '0') + '.')}
+                                    {String(activeItem.id).padStart(2, '0') + '.'}
                                 </span>
                             </div>
                             <div className="mask-box">
                                 <h3 className="project-name" key={`title-${activeItem.id}`}>
-                                    {renderSplitText(activeItem.title)}
+                                    {activeItem.title}
                                 </h3>
                             </div>
                         </div>
                         <div className="mask-box">
                             <p className="coding-project-desc" key={`desc-${activeItem.id}`}>
-                                {renderSplitText(activeItem.desc)}
+                                {activeItem.desc}
                             </p>
                         </div>
                     </div>

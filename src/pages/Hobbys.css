@@ -14,31 +14,7 @@
     align-self: stretch;
 }
 
-/* Background Layer */
-.hobbys-bg-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-.hobbys-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Optional Overlay if needed for contrast */
-.hobbys-bg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
+/* Background Layer Removed */
 
 .hobbys-title {
     color: #CFD0D4;
@@ -56,17 +32,17 @@
 
 /* Scroll Area */
 .hobbys-scroll-area {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    /* Hide scrollbar */
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE/Edge */
-    cursor: grab;
+    width: 100vw;
+    margin-left: -100px;
+    /* Counteract parent padding */
+    padding-left: 100px;
+    /* Restore visual alignment */
+    overflow: hidden;
+    /* Hide overflow for GSAP control */
     z-index: 10;
     position: relative;
+    white-space: nowrap;
+    /* Ensure no wrapping */
 }
 
 .hobbys-scroll-area::-webkit-scrollbar {
@@ -81,6 +57,7 @@
     /* Space for shadow/overflow */
     width: max-content;
     /* Ensure horizontal scroll */
+    will-change: transform;
 }
 
 /* Card Common Styles */
@@ -88,12 +65,8 @@
     position: relative;
     flex-shrink: 0;
     /* Size set inline via React style prop */
-    transition: transform 0.3s ease;
 }
 
-.hobby-card:hover {
-    transform: translateY(-20px);
-}
 
 .hobby-card-bg {
     position: absolute;
@@ -103,7 +76,7 @@
     height: 100%;
     z-index: 0;
     /* Fill color is handled in SVG path */
-    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.2));
 }
 
 .hobby-content {
@@ -124,6 +97,28 @@
     overflow: hidden;
     margin-bottom: 40px;
     border-radius: 5px;
+    position: relative;
+    /* Context for overlay */
+}
+
+/* Overlay */
+.hobby-img-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #141414;
+    opacity: 0.2;
+    /* 20% opacity */
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hobby-img-wrapper:hover::after {
+    opacity: 0;
 }
 
 .hobby-img {
@@ -157,7 +152,7 @@
     font-family: 'Pretendard', sans-serif;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 130%;
     /* 20.8px */
     letter-spacing: -0.32px;

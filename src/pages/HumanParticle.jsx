@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const HumanParticle = () => {
     const canvasRef = useRef(null);
@@ -13,7 +14,7 @@ const HumanParticle = () => {
         const ctx = canvas.getContext('2d');
         let animationFrameId;
         let particles = [];
-        const particleCount = 22000;
+        const particleCount = 20000;
 
         // Interaction event listeners
         const handleMouseMove = (e) => {
@@ -129,15 +130,23 @@ const HumanParticle = () => {
                 });
             }
 
+            gsap.registerPlugin(ScrollTrigger);
+
             gsap.to(particles, {
                 progress: 1,
                 opacity: (i, target) => target.type === 'silhouette' ? 1 : 0.45,
-                duration: 5,
+                duration: 1.2, // Faster duration
                 stagger: {
                     each: 0.00004,
                     from: "random"
                 },
-                ease: "power3.inOut"
+                ease: "power3.inOut",
+                scrollTrigger: {
+                    trigger: ".faq-section",
+                    start: "10% 30%",
+                    end: "90% 70%",         // Disperse when leaving
+                    toggleActions: "play reverse play reverse",
+                }
             });
         };
 
