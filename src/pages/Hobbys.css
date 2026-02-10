@@ -1,0 +1,167 @@
+/* Hobbys Section Layout */
+.hobbys-section {
+    position: relative;
+    width: 100%;
+    /* No bg image for now as requested */
+    /* Fallback dark */
+    overflow: hidden;
+    padding: 220px 0 400px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    /* Gap between title and cards */
+    align-self: stretch;
+}
+
+/* Background Layer */
+.hobbys-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hobbys-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Optional Overlay if needed for contrast */
+.hobbys-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hobbys-title {
+    color: #CFD0D4;
+    text-align: left;
+    /* Image shows left align */
+    font-family: 'Anton', sans-serif !important;
+    font-size: 200px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -4px;
+    margin: 0;
+    z-index: 10;
+}
+
+/* Scroll Area */
+.hobbys-scroll-area {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+    cursor: grab;
+    z-index: 10;
+    position: relative;
+}
+
+.hobbys-scroll-area::-webkit-scrollbar {
+    display: none;
+}
+
+.hobbys-container {
+    display: flex;
+    gap: 120px;
+    /* Space between cards */
+    padding: 0 150px 50px 0;
+    /* Space for shadow/overflow */
+    width: max-content;
+    /* Ensure horizontal scroll */
+}
+
+/* Card Common Styles */
+.hobby-card {
+    position: relative;
+    flex-shrink: 0;
+    /* Size set inline via React style prop */
+    transition: transform 0.3s ease;
+}
+
+.hobby-card:hover {
+    transform: translateY(-20px);
+}
+
+.hobby-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Fill color is handled in SVG path */
+    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.hobby-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+/* Image Area - Top Half */
+.hobby-img-wrapper {
+    width: 100%;
+    /* Adjust as needed */
+    overflow: hidden;
+    margin-bottom: 40px;
+    border-radius: 5px;
+}
+
+.hobby-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text Area */
+.text-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 362px;
+    margin: 0 auto;
+}
+
+.hobby-item-title {
+    color: #FFF;
+    font-family: 'Squarea', sans-serif !important;
+    /* Ensure font is loaded */
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.hobby-desc {
+    color: #FFF;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    /* 20.8px */
+    letter-spacing: -0.32px;
+    margin: 0;
+    /* Truncate if too long? Reference shows full text */
+    white-space: pre-line;
+}

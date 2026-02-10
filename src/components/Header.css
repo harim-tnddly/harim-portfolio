@@ -1,0 +1,167 @@
+/* [FIX] Import Font here to ensure it loads */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+/* 기본 폰트 설정 */
+* {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    /* 넉넉한 터치 영역 */
+    padding-top: 30px;
+    /* 상단 여백 (Frame 30) */
+    display: flex;
+    justify-content: center;
+    /* 중앙 정렬 */
+    align-items: flex-start;
+    z-index: 1000;
+    pointer-events: none;
+    /* 헤더 영역 자체는 클릭 통과 (빈공간) */
+
+    /* [FIX] Transition for Appear Effect */
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+/* 초기 상태 (숨김) */
+.header-container.hidden {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+/* 등장 상태 */
+.header-container.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 네비게이션 바 (가운데 둥근 바) */
+.nav-bar {
+    pointer-events: auto;
+    position: relative;
+    border-radius: 100px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+
+    /* 내부 배경: Figma Gradient + Glass */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) -33.33%, rgba(153, 153, 153, 0.12) 66.67%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* 기존 border 제거 (::before로 대체) */
+    border: none;
+
+    /* 그림자 */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* [핵심] 테두리 전용 레이어 (Mask 기법) */
+.nav-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* 부모와 동일한 크기 */
+    border-radius: 100px;
+    padding: 1px;
+    /* 테두리 두께 */
+
+    /* 테두리 색상: 위는 밝고 아래는 어두운 그라데이션 */
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.1) 55%, rgba(255, 255, 255, 0.4) 100%);
+
+    /* 마스크: 전체 영역에서 내용물(content-box) 영역을 뺌(XOR) -> 테두리만 남음 */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+    /* 클릭 통과 */
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0 50px 0 0;
+    /* 우측 여백 보정 */
+}
+
+/* 공통 텍스트 스타일 */
+.nav-item {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 130%;
+    letter-spacing: -0.4px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #ccc;
+}
+
+/* Home 버튼 (Active Style) */
+.nav-item.active {
+    background-color: #141414;
+    border-radius: 30px;
+    padding: 12px 45px;
+    color: #fff;
+    /* Home은 패딩이 있으므로 마진 없이 자체 너비 가짐 */
+}
+
+/* 간격 디테일 (이미지 수치 반영) */
+/* Home(active) <-> About : 60px */
+.nav-item.active+.nav-item {
+    margin-left: 60px;
+}
+
+/* About 이후 아이템들 간격 : 80px */
+.nav-item:not(.active)+.nav-item {
+    margin-left: 80px;
+}
+
+/* FAQ (마지막) 우측 여백 : 이미지상 60px padding 느낌 */
+.nav-item.last {
+    margin-right: 10px;
+    /* nav-bar padding 고려 */
+}
+
+/* Contact 버튼 */
+.contact-btn {
+    pointer-events: auto;
+    position: absolute;
+    /* 중앙 네비게이션 끝에서 220px 떨어져야 함. 
+       하지만 화면 크기에 따라 달라지므로, 이미지의 우측 여백 100px을 기준으로 고정하는 것이 안전함. */
+    right: 100px;
+    top: 37px;
+    /* Nav bar와 센터 라인 맞춤 (30px + nav padding 보정) */
+
+    /* 스타일 */
+    border-radius: 50px;
+    border: 2px solid #FFF;
+    padding: 16px 43px;
+
+    color: #FFF;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.contact-btn:hover {
+    background: #fff;
+    color: #000;
+}

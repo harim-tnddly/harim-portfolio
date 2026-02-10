@@ -1,0 +1,38 @@
+/* Global Background Lines */
+.background-lines-wrapper {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    /* Behind content */
+    overflow: hidden;
+}
+
+.bg-line-svg {
+    position: absolute;
+    top: 4%;
+    left: 61%;
+    transform: translateX(-50%);
+    /* Start centered, specific offsets in code */
+    opacity: 0.12;
+    /* Adjust as needed */
+}
+
+.bg-line-svg.line-2 {
+    top: 6%;
+    left: 53%;
+}
+
+
+
+/* Adjust dark-zone to allow lines to show through */
+.dark-theme-zone {
+    position: relative;
+    background-color: #141414;
+    width: 100%;
+    isolation: isolate;
+    /* Create stacking context */
+}

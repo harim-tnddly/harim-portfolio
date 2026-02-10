@@ -1,0 +1,33 @@
+.portfolio-section {
+    position: relative;
+    width: 100%;
+    /* Let height be determined by content or set spacing */
+    background-color: #141414;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    /* Add top/bottom padding for spacing */
+}
+
+.video-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1920px;
+    /* Maximize to requested width */
+}
+
+.portfolio-video {
+    width: 1920px;
+    height: 906px;
+    object-fit: cover;
+    /* Cover container or contain depending on resizing needs, use cover for filling */
+    /* Ensure it scales down if screen is smaller */
+    max-width: 100%;
+    height: auto;
+    /* Maintain aspect ratio */
+    aspect-ratio: 1920 / 906;
+    /* Enforce ratio */
+}

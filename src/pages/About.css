@@ -1,0 +1,276 @@
+/* About Section Layout */
+.about-section {
+    position: relative;
+    width: 100%;
+    background-color: #141414;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 200px;
+}
+
+/* 1. 배경 그래픽 (bg_silk) */
+.bg-silk-wrapper {
+    position: absolute;
+    top: -500px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    z-index: 0;
+    pointer-events: none;
+    width: 100vh;
+    height: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-silk {
+    /* 이미지가 컨테이너를 꽉 채우도록 */
+    /* width: 100%;
+    height: 100%; */
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+/* 컨텐츠 래퍼 */
+.about-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. 타이틀: About Me */
+.about-title {
+    color: #CFD0D4;
+    text-align: center;
+    font-family: 'Anton', sans-serif !important;
+    font-size: 120px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -2.4px;
+    margin: 0;
+    padding-top: 200px;
+}
+
+/* 3. 인물 사진: Harim */
+.profile-img-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+}
+
+.harim-img {
+    width: 959px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 4. 하단 텍스트 박스 (.textBox) */
+.textBox {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 140px;
+    margin-top: 100px;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 40px 200px;
+    position: relative;
+}
+
+.left {
+    flex: 1;
+    position: relative;
+    color: #CFD0D4;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -0.4px;
+}
+
+.intro-strong {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.52px;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.intro-body p {
+    margin-bottom: 30px;
+}
+
+.deco-circles2 {
+    position: absolute;
+    top: -180px;
+    left: -180px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 100px;
+    flex: 1;
+    position: relative;
+}
+
+.info-group h3 {
+    color: #CFD0D4;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: -0.48px;
+    margin-bottom: 12px;
+    text-transform: capitalize;
+}
+
+.info-group p {
+    color: #CFD0D4;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 130%;
+    letter-spacing: -0.4px;
+    margin: 4px 0;
+}
+
+.deco-circles {
+    position: absolute;
+    bottom: 0px;
+    right: -550px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* --- Skills Section --- */
+.skills-container {
+    width: 100%;
+    padding: 0 100px;
+    margin-top: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 타이틀 중앙 정렬 */
+}
+
+/* Skills Title Overlay */
+.skills-title-wrapper {
+    position: relative;
+    text-align: left;
+    /* 스크린샷 보면 왼쪽 정렬 */
+    width: 100%;
+    /* 왼쪽 정렬을 위해 */
+    margin-bottom: 108px;
+    padding-left: 20px;
+}
+
+.skills-cursive {
+    color: #CFD0D4;
+    font-family: 'Didot-Italic', serif !important;
+    /* [FIX] Force font apply */
+    font-size: 170px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 60%;
+    /* 글자가 영역 안에 들어오도록 복구 */
+    letter-spacing: -3.4px;
+    text-transform: lowercase;
+    opacity: 0.8;
+
+
+    margin: 0;
+    /* p태그 기본 마진 제거 */
+}
+
+.skills-main-title {
+    color: #CFD0D4;
+    font-family: 'Anton', sans-serif !important;
+    font-size: 200px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+
+    position: relative;
+    z-index: 2;
+    margin: 0;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    /* [FIX] 한 줄에 3개씩 배치되도록 너비 제한 (455*3 + 20*2 = 1405px) */
+    max-width: 1420px;
+}
+
+.skill-card {
+    width: 455px;
+    height: 630px;
+    background: #080808;
+    border: 1px solid #1a1a1a;
+    padding: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #CFD0D4;
+}
+
+/* 카드 헤더 (skill / count) */
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 20px;
+    width: 100%;
+    z-index: 5;
+}
+
+/* 이미지 박스 */
+.skill-img-box {
+    width: 420px;
+    height: 420px;
+    /* flex: 1;  <-- [FIX] 제거! 높이를 420px로 고정하기 위함 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    margin: 16px 0;
+    box-sizing: border-box;
+    position: relative;
+    /* [FIX] 자식 요소(video)의 기준점이 되도록 설정 */
+}
+
+.skill-img-box img {
+    width: 340px;
+    /* [FIX] User requested 340x340 image size */
+    height: 340px;
+    object-fit: contain;
+}
+
+/* 스킬 이름 (카드 하단 좌측) */
+.skill-name {
+    color: #fff;
+    font-family: 'Pretendard', sans-serif !important;
+    font-size: 50px;
+    line-height: 100%;
+    letter-spacing: -1px;
+    text-transform: lowercase;
+    margin: 0;
+    white-space: pre-wrap;
+}

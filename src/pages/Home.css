@@ -1,0 +1,23 @@
+.home-section {
+    position: relative;
+    width: 100%;
+    /* 
+       사용자 요청 1920*1080 반영:
+       기본적으로 화면을 꽉 채우되(100vh),
+       최소 높이를 1080px로 잡아서 큰 화면의 레이아웃을 유지할지,
+       아니면 뷰포트에 맞출지 결정해야 합니다.
+       
+       일단 '1080px' 숫자를 중요하게 생각하시므로 min-height로 지정합니다.
+       작은 화면에서는 스크롤이 생기겠지만 요청하신 스펙을 따릅니다.
+    */
+    height: 100vh;
+    min-height: 1080px;
+
+    background-color: #141414;
+    overflow: hidden;
+    /* 내부 파티클이 넘치지 않게 */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,242 @@
+/* src/pages/Coding.css */
+.coding-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: transparent;
+    /* Changed from #141414 to transparent for global bg */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 200px 100px;
+    overflow: hidden;
+}
+
+/* 1. Title Area */
+.coding-header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 250px;
+    /* Space between title and content */
+}
+
+/* Title Background Circle */
+.coding-circles-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 684px;
+    /* Adjust based on image ratio */
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Title Text */
+.coding-title {
+    color: #CFD0D4;
+    text-align: center;
+    font-family: 'Anton', sans-serif !important;
+    font-size: 200px;
+    font-weight: 400;
+    line-height: 130%;
+    letter-spacing: -4px;
+    z-index: 2;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 2. Content Area */
+.coding-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    gap: 80px;
+    /* Space between cards and text */
+    position: relative;
+}
+
+/* Left: Card Stack Carousel */
+.card-stack-container {
+    position: relative;
+    width: 728px;
+    height: 400px;
+    /* Space for stacked cards */
+}
+
+.code-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 728px;
+    height: 380px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+
+    /* Glassmorphism Effect */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) -33.33%, rgba(153, 153, 153, 0.12) 66.67%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+
+    transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Smoother motion */
+    transform-origin: center center;
+}
+
+.code-card img.site-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Right: Text Info & Navigation */
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+    /* Allow expansion */
+    position: relative;
+}
+
+.nav-button-wrapper-left {
+    position: absolute;
+    left: -10%;
+    /* Move further left to avoid overlap */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    /* Ensure visible above all cards */
+}
+
+.nav-button-wrapper {
+    position: absolute;
+    right: -69px;
+    /* Position on the right edge */
+    left: auto;
+    /* Reset left */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    /* Ensure above cards (active card z-index is 100) */
+}
+
+.nav-arrow-btn {
+    display: flex;
+    width: 138px;
+    height: 138px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    /* Clear Glass Effect */
+    background: rgba(255, 255, 255, 0.03);
+    /* Almost transparent */
+    backdrop-filter: blur(3px);
+    /* Subtle blur to keep background visible */
+    -webkit-backdrop-filter: blur(3px);
+
+    /* Sharp, thin glass edge */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    /* Glossy Highlights */
+    box-shadow:
+        inset 0 0 20px rgba(255, 255, 255, 0.05),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.9),
+        /* Sharp edge highlight */
+        inset -1px -1px 2px rgba(255, 255, 255, 0.1),
+        5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-arrow-btn:hover {
+    transform: scale(1.1);
+}
+
+.project-header-group {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+}
+
+.coding-project-number {
+    color: #CFD0D4;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 55px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1.1px;
+}
+
+.coding-section .project-name {
+    color: #CFD0D4 !important;
+    font-family: 'Squarea', sans-serif !important;
+    /* Requires Squarea font loading */
+    font-size: 64px !important;
+    font-weight: 400 !important;
+    line-height: 100% !important;
+    letter-spacing: -1.6px !important;
+    text-transform: capitalize;
+    white-space: nowrap;
+    /* Force single line */
+}
+
+.coding-project-desc {
+    color: #FFF;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 130%;
+    letter-spacing: -0.4px;
+    white-space: pre-line;
+    /* Handle line breaks */
+}
+
+/* Text Animations */
+.mask-box {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    /* Prevent clipping of fonts */
+    margin-left: -10px;
+    /* Compensate padding */
+}
+
+/* Text Animations - Handled by GSAP */
+.text-box {
+    opacity: 1;
+    left: 55%;
+}
+
+.coding-project-number,
+.project-name,
+.coding-project-desc {
+    display: block;
+    will-change: transform, opacity;
+}
+
+/* Character styling for split text */
+.char {
+    display: inline-block;
+}
+
+/* Force Squarea on split characters for Title */
+.coding-section .project-name .char {
+    font-family: 'Squarea', sans-serif !important;
+}
