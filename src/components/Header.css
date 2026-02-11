@@ -156,3 +156,23 @@
     background: var(--btn-hover-bg, rgba(255, 255, 255, 0.2));
     color: var(--nav-color, #fff);
 }
+
+@media screen and (max-width: 1600px) {
+    .nav-item {
+        font-size: 18px;
+        padding: 12px 35px;
+    }
+
+    .nav-item.active {
+        padding: 12px 35px;
+    }
+
+    .nav-item.active {
+        padding: 12px 35px;
+    }
+
+    .contact-btn {
+        font-size: 18px;
+        padding: 14px 33px;
+    }
+}
