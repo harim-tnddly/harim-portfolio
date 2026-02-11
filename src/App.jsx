@@ -27,13 +27,17 @@ function App() {
     // 2. Lock Scroll during Intro
     document.body.style.overflow = 'hidden';
 
-    // 3. Unlock Scroll & Show Header after Intro (3s)
-    // Particle delay is ~2s + formation time ~0.5s = 2.5s.
-    // Giving 3s total for a clean experience.
+    // 3. Unlock Scroll & Show Header & Auto-Scroll after Intro (3s)
     const timer = setTimeout(() => {
       setShowHeader(true);
       document.body.style.overflow = 'unset'; // Unlock scroll
-    }, 3000);
+
+      // Auto-move to next section naturally
+      const nextSection = document.getElementById('about');
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 3000); // 3s delay (2s stars + 1s formation buffer)
 
     return () => {
       clearTimeout(timer);
