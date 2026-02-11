@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -17,31 +17,66 @@ import BackgroundLines from './components/BackgroundLines';
 function App() {
   const [showHeader, setShowHeader] = useState(false);
 
-  useEffect(() => {
-    // 1. Force Scroll to Top on Refresh
+  useLayoutEffect(() => {
+    // 0. Disable smooth scroll temporarily to ensure instant jump
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    // 1. Force Scroll to Top on Refresh (Aggressive)
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
+
+    // Clear any hash to prevent browser jumping to section
+    if (window.location.hash) {
+      window.history.replaceState(null, null, window.location.pathname);
+    }
+
+    // Multiple attempts to force scroll to top
     window.scrollTo(0, 0);
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome/Firefox
 
-    // 2. Lock Scroll during Intro
-    document.body.style.overflow = 'hidden';
+    // Double check with timeout to override browser actions
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }, 0);
 
-    // 3. Unlock Scroll & Show Header & Auto-Scroll after Intro (3s)
+    // Triple check after layout settles
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+
+    // 2. Lock Scroll during Intro (Delayed slightly to allow scroll reset first)
+    // If we lock immediately while browser is restoring scroll, scrollTo(0,0) might fail.
+    setTimeout(() => {
+      document.body.style.overflow = 'hidden';
+    }, 50);
+
+    // 3. Unlock Scroll & Show Header after Intro (3s)
     const timer = setTimeout(() => {
       setShowHeader(true);
       document.body.style.overflow = 'unset'; // Unlock scroll
 
-      // Auto-move to next section naturally
-      const nextSection = document.getElementById('about');
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 3000); // 3s delay (2s stars + 1s formation buffer)
+      // Auto-move logic disabled per request ("Go to Home top 0 first")
+      // const nextSection = document.getElementById('about');
+      // if (nextSection) {
+      //   nextSection.scrollIntoView({ behavior: 'smooth' });
+      // }
+    }, 3000); // 3s delay
+
+    // Safety: Reset scroll on unload to prevent restoration next time
+    const handleUnload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('beforeunload', handleUnload);
 
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = 'unset'; // Cleanup
+      window.removeEventListener('beforeunload', handleUnload);
     };
   }, []);
 
