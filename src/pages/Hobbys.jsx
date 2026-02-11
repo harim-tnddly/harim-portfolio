@@ -91,11 +91,10 @@ const Hobbys = () => {
         const section = sectionRef.current;
         if (!container || !section) return;
 
-        // Determine scroll distance: Total width - Viewport width
+        // Determine scroll distance using natural container width
         const getScrollAmount = () => {
-            let measureWidth = container.offsetWidth;
-            if (measureWidth < window.innerWidth) measureWidth = container.scrollWidth;
-            return measureWidth - window.innerWidth;
+            // Since layout is inline-flex with 3vw gap, scrollWidth is reliable
+            return container.scrollWidth - window.innerWidth + 100;
         };
 
         const tl = gsap.timeline({
@@ -173,10 +172,10 @@ const Hobbys = () => {
             // If Hobbys is full height, center-center implies top is at 0 (if viewport fits).
             // Let's assume top 5% is safe.
             end: () => `+=${getScrollAmount() + 500}`, // Match pin duration
-            onEnter: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
-            onLeave: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true }),
-            onEnterBack: () => gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true }),
-            onLeaveBack: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true })
+            onEnter: () => gsap.to(document.documentElement, { "--nav-color": "#141414", "--btn-hover-bg": "rgba(20, 20, 20, 0.1)", duration: 0.3, overwrite: true }),
+            onLeave: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", "--btn-hover-bg": "rgba(255, 255, 255, 0.2)", duration: 0.3, overwrite: true }),
+            onEnterBack: () => gsap.to(document.documentElement, { "--nav-color": "#141414", "--btn-hover-bg": "rgba(20, 20, 20, 0.1)", duration: 0.3, overwrite: true }),
+            onLeaveBack: () => gsap.to(document.documentElement, { "--nav-color": "#ffffff", "--btn-hover-bg": "rgba(255, 255, 255, 0.2)", duration: 0.3, overwrite: true })
         });
 
     }, { scope: sectionRef });

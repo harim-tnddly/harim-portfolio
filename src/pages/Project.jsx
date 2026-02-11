@@ -21,6 +21,8 @@ const Project = () => {
     // Use velocity for elastic orbit distortion (spring effect)
     const velocityRef = React.useRef(0);
     const [orbitOffset, setOrbitOffset] = React.useState(0);
+    const [tick, setTick] = React.useState(0); // Force render for continuous pulse
+    const [hoveredNode, setHoveredNode] = React.useState(null); // Track hover state
 
     // Ref for scrolling to content
     const contentRef = React.useRef(null);
@@ -41,10 +43,12 @@ const Project = () => {
                 if (Math.abs(diff) < 0.1) {
                     velocityRef.current = 0;
                     setOrbitOffset(0); // Snap back when stopped
+                    // Don't return early; keep loop running for pulse
                     return targetRotation;
                 }
                 return prev + step;
             });
+            setTick(t => t + 1); // Force re-render for pulse animation
             animationFrame = requestAnimationFrame(animate);
         };
         animate();
@@ -96,10 +100,10 @@ const Project = () => {
         }, 400);
     };
 
-    // Calculate position on ellipse
+    // Calculate position on ellipse and Pulse Scale
     // Container size is approx 100% x 100%. Center is (50%, 50%).
     // Ellipse Radii: RX ~ 45%, RY ~ 38%
-    const getPlanetStyle = (startAngle) => {
+    const getPlanetStyle = (startAngle, id) => {
         const angle = (startAngle + rotation) * (Math.PI / 180); // Convert to radians
         const rx = 45; // Horizontal Radius (%)
         const ry = 28; // Vertical Radius (%) - Adjusted from 38 to 28 so bottom is 78%
@@ -108,16 +112,37 @@ const Project = () => {
         const x = 50 + rx * Math.cos(angle);
         const y = 50 + ry * Math.sin(angle); // 90deg is bottom
 
-        // Scale and Z-Index based on Y position (depth effect)
-        // const scale = 0.7 + ((y - 12) / 76) * 0.4; // Removed per request
+        // Pulse Calculation (Synced)
+        const time = Date.now();
+        const cycle = time % 4000;
+        let scale = 1;
+
+        // Priority: Active > Hover > Pulse
+        if (id === activeId) {
+            scale = 1.2;
+        } else if (id === hoveredNode) {
+            scale = 1.1;
+        } else {
+            // Pulse: 2 beats in first 1 sec
+            if (cycle < 1000) {
+                const t = cycle / 1000;
+                // -cos(4PI * t) starts at -1(0) -> 1(1) -> -1(0) -> 1(1) -> -1(0)
+                const val = (1 - Math.cos(t * 4 * Math.PI)) * 0.5;
+                scale = 1 + 0.1 * val;
+            } else {
+                scale = 1;
+            }
+        }
+
         const zIndex = Math.floor(y); // Lower y = lower z-index (back)
 
         return {
             left: `${x}%`,
             top: `${y}%`,
-            transform: `translate(-50%, -50%) scale(1)`, // Fixed scale
+            transform: `translate(-50%, -50%) scale(${scale})`, // JS driven scale
             zIndex: zIndex,
             opacity: 1, // Always fully visible
+            transition: 'transform 0.1s linear' // Smooth out framerate jitters, but fast enough for pulse
         };
     };
 
@@ -133,7 +158,9 @@ const Project = () => {
             사용자가 제품 가치를 더 명확하게 이해하고 집중할 수 있도록
             UX/UI 전반을 재구성했습니다.`,
             meta: "기간 : 2025.12.01 ~ 2025.12.29    총 인원 : 6명    기여도 : 30%",
-            mainImg: project1Img
+            mainImg: project1Img,
+            siteUrl: "https://suin-yu.github.io/paparecipe/",
+            planUrl: "https://www.figma.com/proto/HUbMCY9N27WPpr53i5BVnz/K-Brand-2%EC%A1%B0?page-id=4278%3A815&node-id=4278-1064&viewport=49%2C-250%2C0.21&t=MecBHI7ECbaEwq8B-1&scaling=scale-down-width&content-scaling=fixed"
         },
         {
             id: 2,
@@ -145,7 +172,9 @@ Live Talk·게시글·투표 등 팬 커뮤니티 기능을 자연스럽게 통�
 사용자가 F1을 ‘보고, 알고, 함께 이야기하는’ 경험을 직관적으로 즐길 수 있도록 
 UX/UI를 재구성했습니다.`,
             meta: "기간 : 2026.01.10 ~ 2026.02.04    총 인원 : 7명    기여도 : 25%",
-            mainImg: project2Img
+            mainImg: project2Img,
+            siteUrl: "https://force1-five.vercel.app/",
+            planUrl: "https://www.figma.com/proto/Iv1nL4EndfSqweSIu1oEEQ/2%EC%B0%A8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_2%EC%A1%B0?page-id=3432%3A12449&node-id=3432-12450&viewport=75%2C-10597%2C0.38&t=ylnn3APbKTPH2A5W-1&scaling=min-zoom&content-scaling=fixed"
         },
         {
             id: 3,
@@ -191,8 +220,10 @@ UX/UI를 재구성했습니다.`,
                     {/* Planet 01 (Start Angle: 90deg - Bottom) */}
                     <div
                         className={`planet-node ${activeId === 1 ? 'active' : ''}`}
-                        style={getPlanetStyle(90)}
+                        style={getPlanetStyle(90, 1)}
                         onClick={() => handlePlanetClick(1)}
+                        onMouseEnter={() => setHoveredNode(1)}
+                        onMouseLeave={() => setHoveredNode(null)}
                     >
                         <img src={planet1} alt="Planet 1" />
                         <span className="planet-label">project 01</span>
@@ -201,8 +232,10 @@ UX/UI를 재구성했습니다.`,
                     {/* Planet 02 (Start Angle: 210deg - Left Top) */}
                     <div
                         className={`planet-node ${activeId === 2 ? 'active' : ''}`}
-                        style={getPlanetStyle(210)}
+                        style={getPlanetStyle(210, 2)}
                         onClick={() => handlePlanetClick(2)}
+                        onMouseEnter={() => setHoveredNode(2)}
+                        onMouseLeave={() => setHoveredNode(null)}
                     >
                         <img src={planet2} alt="Planet 2" />
                         <span className="planet-label">project 02</span>
@@ -211,8 +244,10 @@ UX/UI를 재구성했습니다.`,
                     {/* Planet 03 (Start Angle: 330deg - Right Top) */}
                     <div
                         className={`planet-node ${activeId === 3 ? 'active' : ''}`}
-                        style={getPlanetStyle(330)}
+                        style={getPlanetStyle(330, 3)}
                         onClick={() => handlePlanetClick(3)}
+                        onMouseEnter={() => setHoveredNode(3)}
+                        onMouseLeave={() => setHoveredNode(null)}
                     >
                         <span className="planet-label">project 03</span>
                         <img src={planet2} alt="Planet 3" />
@@ -313,8 +348,8 @@ UX/UI를 재구성했습니다.`,
                             <p className="project-meta">{activeProject.meta}</p>
 
                             <div className="btn-group">
-                                <button className="btn-view">View Plan</button>
-                                <button className="btn-view">View Site</button>
+                                <button className="btn-view" onClick={() => activeProject.planUrl && window.open(activeProject.planUrl, '_blank')}>View Plan</button>
+                                <button className="btn-view" onClick={() => activeProject.siteUrl && window.open(activeProject.siteUrl, '_blank')}>View Site</button>
                             </div>
                         </div>
                     </div>

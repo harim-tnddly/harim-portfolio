@@ -29,7 +29,7 @@ const Faq = () => {
             end: "bottom 5%",
             onEnter: () => {
                 // Nav -> Dark
-                gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true });
+                gsap.to(document.documentElement, { "--nav-color": "#141414", "--btn-hover-bg": "rgba(20, 20, 20, 0.1)", duration: 0.3, overwrite: true });
                 // Visual -> 0 (Delay 1s)
                 gsap.to(visual, {
                     xPercent: 0,
@@ -41,7 +41,7 @@ const Faq = () => {
             },
             onLeave: () => {
                 // Nav -> Light
-                gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true });
+                gsap.to(document.documentElement, { "--nav-color": "#ffffff", "--btn-hover-bg": "rgba(255, 255, 255, 0.2)", duration: 0.3, overwrite: true });
                 // Visual -> 30
                 gsap.to(visual, {
                     xPercent: 30,
@@ -52,7 +52,7 @@ const Faq = () => {
             },
             onEnterBack: () => {
                 // Nav -> Dark
-                gsap.to(document.documentElement, { "--nav-color": "#141414", duration: 0.3, overwrite: true });
+                gsap.to(document.documentElement, { "--nav-color": "#141414", "--btn-hover-bg": "rgba(20, 20, 20, 0.1)", duration: 0.3, overwrite: true });
                 // Visual -> 0 (Delay 1s)
                 gsap.to(visual, {
                     xPercent: 0,
@@ -64,7 +64,7 @@ const Faq = () => {
             },
             onLeaveBack: () => {
                 // Nav -> Light
-                gsap.to(document.documentElement, { "--nav-color": "#ffffff", duration: 0.3, overwrite: true });
+                gsap.to(document.documentElement, { "--nav-color": "#ffffff", "--btn-hover-bg": "rgba(255, 255, 255, 0.2)", duration: 0.3, overwrite: true });
                 // Visual -> 30
                 gsap.to(visual, {
                     xPercent: 30,

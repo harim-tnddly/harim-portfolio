@@ -50,13 +50,13 @@
 }
 
 .hobbys-container {
-    display: flex;
-    gap: 3%;
+    display: inline-flex;
+    min-width: 100%;
+    /* Ensure content fits without overflow hidden or clipping */
+    gap: 3vw;
     /* Space between cards */
     padding: 0 100px 50px 0;
     /* Space for shadow/overflow */
-    width: max-content;
-    /* Ensure horizontal scroll */
     will-change: transform;
 }
 

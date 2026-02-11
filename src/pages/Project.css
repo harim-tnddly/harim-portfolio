@@ -166,7 +166,7 @@
 
 /* Hover effects */
 .planet-node:hover {
-    transform: scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .planet-node img {
@@ -208,15 +208,13 @@
     /* Important: p-01 relies on translateX to center itself */
 }
 
-/* Fix for p-01 hover jumping issue */
-.p-01:hover {
-    transform: translateX(-50%) scale(1.1);
-}
 
 /* Active State Styling */
 .planet-node.active {
     z-index: 10;
     top: 78%;
+    animation: none;
+    transform: translate(-50%, -50%) scale(1.2);
 }
 
 .planet-node.active img {

@@ -60,36 +60,51 @@ const HumanParticle = () => {
             gsap.killTweensOf(particles);
             particles = [];
 
-            for (let i = 0; i < particleCount; i++) {
-                let rx, ry, found = false, attempts = 0;
+            // 1. Pre-calculate valid points from maskData to avoid rejection sampling
+            const validPoints = [];
+            for (let y = 0; y < svgH; y += 2) { // Skip every other row for speed/sparsity
+                for (let x = 0; x < svgW; x += 2) {
+                    const index = (y * svgW + x) * 4 + 3;
+                    if (maskData[index] > 10) {
+                        validPoints.push({ x, y });
+                    }
+                }
+            }
+
+            gsap.killTweensOf(particles);
+            particles = [];
+
+            // Reduced count for drawing performance (12k is still very dense)
+            const optimalCount = 6000;
+
+            for (let i = 0; i < optimalCount; i++) {
+                let rx, ry;
                 let type = 'ambient';
 
-                // 전체 입자의 약 45%를 실루엣에 할당
-                if (i < particleCount * 0.45) {
-                    while (!found && attempts < 120) {
-                        rx = Math.floor(Math.random() * svgW);
-                        ry = Math.floor(Math.random() * svgH);
+                // Target approx 45% for silhouette
+                if (i < optimalCount * 0.45 && validPoints.length > 0) {
+                    // Optimized: Pick random from valid points directy
+                    // Apply weighted random to maintain density gradient if desired
+                    // Simple uniform sampling from valid points is much faster
+                    const pt = validPoints[Math.floor(Math.random() * validPoints.length)];
+                    rx = pt.x;
+                    ry = pt.y;
 
-                        const xRatio = rx / svgW;
-                        const xWeight = Math.pow(1 - xRatio, 1.8);
+                    // Apply density weights (optional, simplified for speed)
+                    const xRatio = rx / svgW;
+                    const xWeight = Math.pow(1 - xRatio, 1.8);
+                    const normalizedY = (ry / svgH) * 2 - 1;
+                    const yWeight = 1 - Math.pow(Math.abs(normalizedY), 4);
 
-                        const normalizedY = (ry / svgH) * 2 - 1;
-                        const yWeight = 1 - Math.pow(Math.abs(normalizedY), 4);
-
-                        const scanlineWeight = (Math.sin(ry * 0.9) * 0.35 + 0.65);
-
-                        if (maskData[(ry * svgW + rx) * 4 + 3] > 10) {
-                            if (Math.random() < (xWeight * yWeight * scanlineWeight * 1.2)) {
-                                found = true;
-                            }
-                        }
-                        attempts++;
+                    // Rejection based on density only (not shape) - rare retry
+                    if (Math.random() > (xWeight * yWeight * 1.5)) {
+                        // If rejected by density, pick another (low cost)
+                        const pt2 = validPoints[Math.floor(Math.random() * validPoints.length)];
+                        rx = pt2.x; ry = pt2.y;
                     }
                     type = 'silhouette';
-                }
-
-                if (!found) {
-                    // Ambient noise logic for cleaner edges
+                } else {
+                    // Ambient noise logic (Optimized)
                     const amWX = svgW * 1.8;
                     const amOffX = -svgW * 0.4;
                     rx = Math.floor(Math.random() * amWX + amOffX);
@@ -97,36 +112,38 @@ const HumanParticle = () => {
 
                     const normalizedY = ((ry + svgH * 0.075) / (svgH * 1.15)) * 2 - 1;
                     const yFade = 1 - Math.pow(Math.abs(normalizedY), 4.5);
-
-                    // 좌우 가장자리 페이드아웃 추가 (Horizontal Fade)
                     const normalizedX = ((rx - amOffX) / amWX) * 2 - 1;
                     const xFade = 1 - Math.pow(Math.abs(normalizedX), 4.5);
 
                     if (Math.random() > (yFade * xFade)) continue;
-                    type = 'ambient';
                 }
 
+                // ... Rest of initialization
                 const xRatio = rx / svgW;
                 const edgeSoftness = type === 'silhouette' ? Math.pow(xRatio, 2.5) * 40 : 0;
 
+                // ... (Continue to push)
                 const xNoise = (Math.random() - 0.5) * (type === 'silhouette' ? (6 + edgeSoftness) : 180);
                 const yNoise = (Math.random() - 0.5) * (type === 'silhouette' ? 3 : 70);
 
+                // Scatter logic: "Exploded" view rather than pure random noise
+                // Particles start scattered widely but somewhat related to their destination area
+                // This prevents the "TV Static" look and feels like a dispersed soul/cloud.
                 particles.push({
-                    startX: Math.random() * w,
-                    startY: Math.random() * h,
+                    startX: rx * scale + offsetX + (Math.random() - 0.5) * w * 1.5, // Expanded cloud
+                    startY: ry * scale + offsetY + (Math.random() - 0.5) * h * 1.5,
                     targetX: rx * scale + offsetX + xNoise,
                     targetY: ry * scale + offsetY + yNoise,
                     progress: 0,
                     size: type === 'silhouette'
-                        ? (Math.random() * 1.8 + 0.6) * (1 - xRatio * 0.3)
-                        : (Math.random() * 0.9 + 0.3),
+                        ? (Math.random() * 2.0 + 0.8) * (1 - xRatio * 0.3)
+                        : (Math.random() * 1.0 + 0.9), // Ambient only +0.2 (0.9~1.9)
                     noiseSeed: Math.random() * 2000,
                     speed: 0.001 + Math.random() * 0.002,
-                    opacity: 0,
+                    opacity: 0, // Hidden until motion starts
                     type: type,
-                    baseX: 0, // Placeholder, updated in loop
-                    baseY: 0  // Placeholder, updated in loop
+                    baseX: 0,
+                    baseY: 0
                 });
             }
 
@@ -135,7 +152,7 @@ const HumanParticle = () => {
             gsap.to(particles, {
                 progress: 1,
                 opacity: (i, target) => target.type === 'silhouette' ? 1 : 0.45,
-                duration: 1.2, // Faster duration
+                duration: 0.8, // Faster duration
                 stagger: {
                     each: 0.00004,
                     from: "random"
