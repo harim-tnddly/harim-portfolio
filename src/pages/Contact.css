@@ -85,7 +85,7 @@
 .contact-title {
     color: #FFF;
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     font-weight: 400;
     line-height: 100%;
     letter-spacing: -4px;
@@ -121,7 +121,7 @@
     color: #FFF;
     font-family: 'Squarea', sans-serif !important;
     /* Correct font family name */
-    font-size: 50px;
+    font-size: 2.7vw;
     font-weight: 400;
     letter-spacing: -1px;
     text-transform: uppercase;
@@ -137,7 +137,7 @@
 .contact-ready {
     color: #FFF;
     font-family: 'Squarea', sans-serif !important;
-    font-size: 100px;
+    font-size: 5.3vw;
     font-weight: 400;
     letter-spacing: -2px;
     text-transform: uppercase;
@@ -188,7 +188,7 @@
 .contact-soon {
     color: #FFF;
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     /* Responsive huge size to fill width */
     font-weight: 400;
     line-height: 150%;
@@ -198,4 +198,40 @@
     margin: 0;
     width: 100%;
     /* Slight overlap with bottom edge */
+}
+
+@media screen and (max-width : 1600px) {
+    .contact-available {
+        margin-top: 350px;
+    }
+
+    .contact-ready {
+        margin-top: 250px;
+    }
+
+    .contact-footer-group {
+        margin-top: 80px;
+    }
+
+    .contact-section {
+        padding: 600px 0 0 0;
+    }
+}
+
+@media screen and (max-width : 1400px) {
+    .contact-available {
+        margin-top: 300px;
+    }
+
+    .contact-ready {
+        margin-top: 200px;
+    }
+
+    .contact-footer-group {
+        margin-top: 60px;
+    }
+
+    .contact-section {
+        padding: 400px 0 0 0;
+    }
 }

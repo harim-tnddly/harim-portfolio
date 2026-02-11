@@ -57,14 +57,13 @@
     align-items: center;
     position: relative;
     width: 100%;
-    max-width: 1600px;
 }
 
 .project-title {
     color: #CFD0D4;
     text-align: center;
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -4px;
@@ -78,11 +77,8 @@
 .orbit-container {
     position: relative;
     /* Fixed sizes to ensure orbit and calculation works */
-    width: 1534px;
+    width: 90%;
     height: 585px;
-    min-width: 1534px;
-    /* Prevent shrinking */
-    min-height: 585px;
     flex-shrink: 0;
     /* Prevent flexitem shrinking */
 
@@ -97,7 +93,7 @@
 
 .orbit-circles-bg {
     position: absolute;
-    width: 1534px;
+    width: 100%;
     height: 585px;
     top: 0;
     left: 0;
@@ -123,31 +119,28 @@
 
 /* Circle 1: Inner tilted loop - Shifted slightly up/right */
 .circle-1 {
-    width: 1135px;
-    height: 304px;
+    width: 74%;
+    height: 52%;
     top: 48%;
     /* Shift up slightly */
     transform: translate(-50%, -50%) rotate(8deg);
 }
 
-/* Circle 2: Middle loop */
 .circle-2 {
-    width: 1361px;
-    height: 304px;
+    width: 88.7%;
+    height: 52%;
     top: 49%;
 }
 
-/* Circle 3: Outer loop - Main horizontal */
 .circle-3 {
-    width: 1534px;
-    height: 304px;
+    width: 100%;
+    height: 52%;
     top: 50%;
 }
 
-/* Circle 4: Diagonal crossing loop - Shifted down/left */
 .circle-4 {
-    width: 1340px;
-    height: 312px;
+    width: 87.3%;
+    height: 53.3%;
     top: 52%;
     /* Shift down slightly */
     transform: translate(-50%, -50%) rotate(-15deg);
@@ -178,7 +171,7 @@
 .planet-label {
     color: #FFF;
     font-family: 'Squarea', sans-serif !important;
-    font-size: 40px;
+    font-size: 2.1vw;
     font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.8px;
@@ -253,16 +246,16 @@
 .part-left {
     position: relative;
     z-index: 10;
-    left: -8%;
-    margin-right: -100px;
-    /* Middle과 겹침 */
     display: flex;
+    left: 7%;
     justify-content: flex-end;
-    /* 오른쪽 정렬해서 Middle과 닿게 */
+    width: 41.93%;
+    /* 1548px 가용 너비 기준 649px */
+    flex-shrink: 0;
 }
 
 .img-project-main {
-    width: 650px;
+    width: 100%;
     height: auto;
     object-fit: contain;
     filter: drop_shadow(0px 20px 40px rgba(0, 0, 0, 0.6));
@@ -276,12 +269,14 @@
     top: 10%;
     left: 50%;
     transform: translate(-50%, 0%);
+    width: 40.7%;
+    /* 1548px 기준 630px */
 }
 
 /* .img-circle2 대체: SVG Graphic Styles */
 .svg-circle2 {
-    width: 673px;
-    height: 673px;
+    width: 100%;
+    height: auto;
     object-fit: contain;
     /* CSS 필터 및 블렌드 모드는 SVG 인라인 스타일로 이미 적용됨 */
     opacity: 0.8;
@@ -293,7 +288,8 @@
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 130%;
+    width: 131.2%;
+    /* 원본 비율(883/673) 유지 */
     height: auto;
     /* 비율 유지 */
     z-index: 2;
@@ -307,7 +303,8 @@
     position: relative;
     top: 0%;
     left: 8%;
-    width: 600px;
+    width: 74.5%;
+    height: 100%;
     z-index: 8;
     /* Middle보다 위에 오도록 */
     display: flex;
@@ -321,35 +318,35 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 878px;
-    height: 878px;
+    width: 100%;
+    height: 100%;
     /* CSS 필터 및 블렌드 모드는 SVG 인라인 스타일로 이미 적용됨 */
     z-index: 0;
 }
 
 /* Text Box within Part Right */
-.text-box {
+.project-text-box {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 60% !important;
     transform: translate(-50%, -50%);
     z-index: 2;
     color: #CFD0D4;
     font-family: 'Pretendard', sans-serif !important;
     text-align: left;
-    width: 100%;
+    width: 80%;
 }
 
 .project-number {
     display: block;
-    font-size: 100px;
+    font-size: 5.3vw;
     font-weight: 700;
     color: #fff;
     line-height: 1;
     margin-bottom: 20px;
 }
 
-.text-box h3 {
+.project-text-box h3 {
     font-size: 40px;
     font-weight: 600;
     margin-bottom: 24px;
@@ -393,4 +390,112 @@
 .btn-view:hover {
     background: #fff;
     color: #000;
+}
+
+@media screen and (max-width : 1700px) {
+
+
+    .project-number {
+        font-size: 4vw;
+    }
+
+    .project-text-box h3 {
+        font-size: 30px;
+    }
+
+    .project-desc {
+        font-size: 16px;
+    }
+
+    .project-meta {
+        font-size: 16px;
+    }
+
+    .btn-view {
+        padding: 12px 50px;
+        font-size: 16px;
+    }
+
+    .project-text-box {
+        left: 55% !important;
+    }
+}
+
+
+@media screen and (max-width : 1400px) {
+    .project-section {
+        padding: 150px 100px !important;
+    }
+
+    .planet-node img {
+        width: 60px;
+    }
+
+    .planet-node.active img {
+        width: 80px;
+    }
+
+    .vertical-line {
+        height: 150px;
+    }
+
+    .project-3part-layout {
+        padding-top: 0;
+    }
+
+    .project-text-box h3 {
+        font-size: 25px;
+        margin-bottom: 16px;
+    }
+
+    .project-desc {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .project-meta {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .btn-view {
+        padding: 10px 40px;
+        font-size: 14px;
+    }
+
+    .part-left {
+        left: 5%;
+    }
+
+    .project-content {
+        margin-top: 0px;
+    }
+
+    .project-number {
+        font-size: 3.7vw;
+        margin-bottom: 16px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .project-desc {
+        font-size: 12px;
+    }
+
+    .project-meta {
+        font-size: 12px;
+    }
+
+    .btn-view {
+        padding: 10px 40px;
+        font-size: 12px;
+    }
+
+    .project-text-box h3 {
+        font-size: 22px;
+    }
+
+    .project-number {
+        font-size: 3.2vw;
+    }
 }

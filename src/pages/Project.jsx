@@ -341,7 +341,7 @@ UX/UI를 재구성했습니다.`,
                             </defs>
                         </svg>
 
-                        <div className="text-box">
+                        <div className="project-text-box">
                             <span className="project-number">{String(activeProject.id).padStart(2, '0')}.</span>
                             <h3>{activeProject.title}</h3>
                             <p className="project-desc">{activeProject.desc}</p>

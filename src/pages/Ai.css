@@ -17,7 +17,7 @@
     color: #CFD0D4;
     text-align: right;
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     font-style: normal;
     font-weight: 400;
     line-height: 1.2;
@@ -115,7 +115,7 @@
     padding: 200px 100px;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 30px;
 }
 
 /* Flex Container for Text Box + Display Area */
@@ -142,7 +142,7 @@
 
 /* Text Info Internal */
 .ai-text-info {
-    max-width: 600px;
+    max-width: 80%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -201,7 +201,6 @@
 .ai-display-area {
     display: flex;
     width: 675px;
-    min-width: 675px;
     height: 916px;
     flex-direction: column;
     justify-content: center;
@@ -234,8 +233,8 @@
     display: flex;
     width: 100%;
     overflow-x: auto;
-    padding: 20px;
-    justify-content: flex-start;
+    padding: 20px 0;
+    justify-content: center;
     scrollbar-width: none;
 }
 
@@ -255,11 +254,11 @@
 }
 
 .thumbnail-item.selected {
-    width: 130px;
+    width: 7.7%;
 }
 
 .thumbnail-item:not(.selected) {
-    width: 63px;
+    width: 3.7%;
 }
 
 /* Thumb Wrapper & Overlay */
@@ -291,4 +290,60 @@
 
 .thumbnail-item.selected .thumb-overlay {
     opacity: 0;
+}
+
+
+@media screen and (max-width: 1600px) {
+
+    .ai-project-desc {
+        font-size: 16px;
+    }
+
+    .ai-project-title {
+        font-size: 30px;
+    }
+
+    .prompt-label {
+        font-size: 16px;
+    }
+
+    .thumbnail-item.selected {
+        width: 7.5%;
+    }
+
+    .thumbnail-item:not(.selected) {
+        width: 3.5%;
+    }
+}
+
+
+@media screen and (max-width : 1400px) {
+    .ai-container {
+        padding: 150px 100px !important;
+    }
+
+    .ai-text-info {
+        max-width: 90%;
+    }
+
+    .ai-showcase-title {
+        font-size: 9vw;
+    }
+
+    .ai-display-area {
+        width: 550px;
+        height: 706px;
+    }
+
+    .ai-textBox {
+        gap: 10px;
+    }
+
+    .thumbnail-item.selected {
+        width: 7.3%;
+    }
+
+    .thumbnail-item:not(.selected) {
+        width: 3.3%;
+    }
 }

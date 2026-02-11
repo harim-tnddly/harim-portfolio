@@ -14,7 +14,7 @@
     color: #141414;
     text-align: left;
     font-family: 'Anton', sans-serif !important;
-    font-size: 300px;
+    font-size: 15.7vw;
     font-weight: 400;
     line-height: 1;
     letter-spacing: -4px;
@@ -120,7 +120,7 @@
     height: 1600px;
     /* 고정 높이 확보 */
     position: absolute;
-    top: -200px;
+    top: -5%;
     /* Fixed PX to prevent movement on expansion */
     left: 50%;
 
@@ -132,4 +132,51 @@
     /* position: relative !important; REMOVED per user request */
     overflow: hidden;
     /* Added to keep particles contained */
+}
+
+@media screen and (max-width : 1400px) {
+    .faq-question-text {
+        font-size: 25px;
+    }
+
+    .faq-answer-text {
+        font-size: 18px;
+    }
+
+    .faq-indicator-bar {
+        width: 10px;
+        height: 10px;
+    }
+
+    .faq-question-item.active .faq-indicator-bar,
+    .faq-question-item:hover .faq-indicator-bar,
+    .faq-question-item:focus-within .faq-indicator-bar {
+        width: 80px;
+    }
+
+    .faq-question-item.active .faq-answer-text,
+    .faq-question-item:hover .faq-answer-text,
+    .faq-question-item:focus-within .faq-answer-text {
+        padding-left: 100px;
+        margin-top: 20px;
+    }
+
+    .faq-questions-list {
+        gap: 50px;
+    }
+
+    .faq-visual-side {
+        height: 1200px;
+        width: 45%;
+    }
+
+    .faq-section {
+        padding: 150px 100px 150px !important;
+    }
+
+    .faq-title {
+        margin-bottom: 100px;
+    }
+
+
 }

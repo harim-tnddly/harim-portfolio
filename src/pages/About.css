@@ -13,7 +13,7 @@
 /* 1. 배경 그래픽 (bg_silk) */
 .bg-silk-wrapper {
     position: absolute;
-    top: -500px;
+    top: -10%;
     left: 50%;
     transform: translateX(-50%) rotate(0deg);
     z-index: 0;
@@ -48,7 +48,7 @@
     color: #CFD0D4;
     text-align: center;
     font-family: 'Anton', sans-serif !important;
-    font-size: 120px;
+    font-size: 6.2vw;
     font-weight: 400;
     line-height: 150%;
     letter-spacing: -2.4px;
@@ -64,7 +64,7 @@
 }
 
 .harim-img {
-    width: 959px;
+    width: 100%;
     height: auto;
     object-fit: contain;
 }
@@ -77,8 +77,7 @@
     gap: 140px;
     margin-top: 100px;
     width: 100%;
-    max-width: 1400px;
-    padding: 0 40px 200px;
+    padding: 0 100px 200px;
     position: relative;
 }
 
@@ -184,7 +183,7 @@
     color: #CFD0D4;
     font-family: 'Didot-Italic', serif !important;
     /* [FIX] Force font apply */
-    font-size: 170px;
+    font-size: 9vw;
     font-style: italic;
     font-weight: 400;
     line-height: 60%;
@@ -201,7 +200,7 @@
 .skills-main-title {
     color: #CFD0D4;
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     font-weight: 400;
     line-height: 100%;
     letter-spacing: -4px;
@@ -224,8 +223,8 @@
 }
 
 .skill-card {
-    width: 455px;
-    height: 630px;
+    width: 31.7%;
+    height: 60vh;
     background: #080808;
     border: 1px solid #1a1a1a;
     padding: 16px;
@@ -248,8 +247,8 @@
 
 /* 이미지 박스 */
 .skill-img-box {
-    width: 420px;
-    height: 420px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     /* flex: 1;  <-- [FIX] 제거! 높이를 420px로 고정하기 위함 */
     display: flex;
     justify-content: center;
@@ -272,10 +271,101 @@
 .skill-name {
     color: #fff;
     font-family: 'Pretendard', sans-serif !important;
-    font-size: 50px;
+    font-size: 2.7vw;
     line-height: 100%;
     letter-spacing: -1px;
     text-transform: lowercase;
     margin: 0;
     white-space: pre-wrap;
+}
+
+@media screen and (max-width: 1500px) {
+    .bg-silk-wrapper {
+        width: 70vh;
+        height: 70vw;
+        top: -3%;
+    }
+
+    .intro-strong {
+        font-size: 22px;
+    }
+
+    .left {
+        font-size: 18px;
+    }
+
+    .intro-body p {
+        margin-bottom: 40px;
+    }
+
+    .right {
+        gap: 20px;
+        padding-top: 60px;
+    }
+
+    .info-group h3 {
+        font-size: 20px;
+    }
+
+    .info-group p {
+        font-size: 18px;
+    }
+
+    .deco-circles2 {
+        width: 60%;
+
+    }
+
+    .deco-circles {
+        width: 70%;
+        bottom: 10%;
+        right: -270px;
+    }
+
+    .skill-card {
+        height: 52vh;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .about-section {
+        padding-bottom: 150px !important;
+    }
+
+    .about-title {
+        padding-top: 150px !important;
+    }
+
+    .textBox {
+        padding-bottom: 150px !important;
+    }
+
+    .harim-img {
+        width: 80%;
+    }
+
+    .skill-card {
+        height: 48vh;
+    }
+
+    .skills-container {
+        margin-top: 200px;
+    }
+
+    .header-container {
+        justify-content: start;
+        padding-left: 100px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .skill-card {
+        height: 44vh;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .skill-card {
+        height: 40vh;
+    }
 }

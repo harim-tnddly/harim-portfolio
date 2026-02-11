@@ -21,7 +21,7 @@
     text-align: left;
     /* Image shows left align */
     font-family: 'Anton', sans-serif !important;
-    font-size: 200px;
+    font-size: 10.5vw;
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -140,7 +140,7 @@
     color: #FFF;
     font-family: 'Squarea', sans-serif !important;
     /* Ensure font is loaded */
-    font-size: 35px;
+    font-size: 30px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -161,4 +161,10 @@
     margin: 0;
     /* Truncate if too long? Reference shows full text */
     white-space: pre-line;
+}
+
+@media screen and (max-width: 1400px) {
+    .hobbys-section {
+        padding: 150px 0 150px 100px !important;
+    }
 }

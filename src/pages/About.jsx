@@ -49,7 +49,7 @@ const About = () => {
             const words = p.querySelectorAll('span');
             if (words.length > 0) {
                 gsap.to(words, {
-                    color: "#ffffff",
+                    color: "#CFD0D4",
                     stagger: 0.1,
                     ease: "none",
                     scrollTrigger: {
@@ -195,8 +195,6 @@ const SkillCard = ({ skill }) => {
                     style={{
                         opacity: isHovered ? 0 : 1,
                         transition: 'opacity 0.3s ease',
-                        width: '340px',
-                        height: '340px',
                         objectFit: 'contain'
                     }}
                 />
@@ -213,8 +211,8 @@ const SkillCard = ({ skill }) => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: '340px',
-                        height: '340px',
+                        width: '80%',
+                        height: '80%',
                         objectFit: 'contain',
                         opacity: isHovered ? 1 : 0,
                         transition: 'opacity 0.3s ease',

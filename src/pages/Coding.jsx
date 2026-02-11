@@ -331,7 +331,7 @@ const Coding = () => {
                 {/* Right: Info Area */}
                 <div className="info-container">
                     {/* Removed 'hidden' class logic, GSAP handles opacity/presence */}
-                    <div className="text-box">
+                    <div className="coding-text-box">
                         <div className="project-header-group">
                             <div className="mask-box">
                                 <span className="coding-project-number" key={`num-${activeItem.id}`}>
