@@ -1,3 +1,25 @@
+/* Global Root Reset to Prevent Horizontal Scroll */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #141414;
+    /* Match global theme */
+}
+
+.App {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+main {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 /* Global Background Lines */
 .background-lines-wrapper {
     position: absolute;
