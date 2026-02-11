@@ -21,7 +21,48 @@ import skillVideo3 from '../assets/img/about/skill_3.mp4';
 import skillVideo4 from '../assets/img/about/skill_4.mp4';
 import skillVideo5 from '../assets/img/about/skill_5.mp4';
 
+// GSAP Imports
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const About = () => {
+    // Text Fill Animation
+    // Text Fill Animation (Word by Word)
+    useGSAP(() => {
+        const paragraphs = document.querySelectorAll('.intro-body p, .info-group p');
+
+        // 1. Initial Split (if not already done)
+        if (paragraphs.length > 0 && !paragraphs[0].dataset.split) {
+            paragraphs.forEach(p => {
+                const text = p.innerText;
+                const words = text.split(' ');
+                p.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
+                p.dataset.split = "true";
+            });
+        }
+
+        // 2. Animate each paragraph independently based on scroll position
+        paragraphs.forEach((p) => {
+            const words = p.querySelectorAll('span');
+            if (words.length > 0) {
+                gsap.to(words, {
+                    color: "#ffffff",
+                    stagger: 0.1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: p,
+                        start: "top 80%", // Start filling as paragraph enters
+                        end: "bottom 60%", // End when mostly scrolled past
+                        scrub: 1
+                    }
+                });
+            }
+        });
+    }, []);
+
     // 스킬 데이터
     const skills = [
         { id: 1, name: "html &\ncss", img: skill1, video: skillVideo1, count: "1/5" },
@@ -127,6 +168,7 @@ const SkillCard = ({ skill }) => {
 
     React.useEffect(() => {
         if (isHovered && videoRef.current) {
+            videoRef.current.playbackRate = 2.0; // [FIX] 2배속 재생
             videoRef.current.play().catch(e => console.log('Auto-play prevented:', e));
         } else if (!isHovered && videoRef.current) {
             videoRef.current.pause();

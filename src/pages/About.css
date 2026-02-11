@@ -102,7 +102,10 @@
 }
 
 .intro-body p {
-    margin-bottom: 30px;
+    margin-bottom: 80px;
+    color: #4a4a4a;
+    transition: color 0.5s ease;
+    display: block;
 }
 
 .deco-circles2 {
@@ -135,7 +138,9 @@
 }
 
 .info-group p {
-    color: #CFD0D4;
+    color: #4a4a4a;
+    /* Start Gray for animation */
+    transition: color 0.5s ease;
     font-family: 'Pretendard', sans-serif;
     font-size: 20px;
     font-weight: 300;
@@ -249,7 +254,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 60px;
     margin: 16px 0;
     box-sizing: border-box;
     position: relative;
@@ -257,9 +262,9 @@
 }
 
 .skill-img-box img {
-    width: 340px;
+    width: 100%;
     /* [FIX] User requested 340x340 image size */
-    height: 340px;
+    height: 100%;
     object-fit: contain;
 }
 

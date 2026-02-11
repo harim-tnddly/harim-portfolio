@@ -1,11 +1,11 @@
 .faq-section {
     position: relative;
     width: 100%;
-    min-height: 2400px;
+    min-height: 150vh;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    padding: 150px 8vw;
+    padding: 200px 100px 400px;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -36,7 +36,7 @@
     width: 45%;
     display: flex;
     flex-direction: column;
-    gap: 150px;
+    gap: 80px;
     /* Reduced gap since answers will expand */
     z-index: 10;
     padding-top: 5%;
@@ -117,10 +117,13 @@
 /* 실루엣이 담길 부모 영역 */
 .faq-visual-side {
     width: 50%;
-    height: 1750px;
+    height: 1600px;
     /* 고정 높이 확보 */
-    position: sticky;
-    top: 50px;
+    position: absolute;
+    top: -200px;
+    /* Fixed PX to prevent movement on expansion */
+    left: 50%;
+
     display: flex;
     justify-content: center;
     align-items: center;

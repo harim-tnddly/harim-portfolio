@@ -2,20 +2,64 @@
 .contact-section {
     position: relative;
     width: 100%;
-    min-height: 2500px;
     /* Ensure enough height for large margins */
-    background-image: url('../assets/img/contact.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* Base White Background for Transition */
+    background-color: #ffffff;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 300px 0 0 0;
-    /* Adjust top padding */
+    padding: 750px 0 0 0;
     overflow: hidden;
 }
+
+/* Contact Sphere Image */
+.contact-sphere {
+    position: absolute;
+    bottom: 0;
+    /* Align to bottom */
+    left: 0;
+    width: 100%;
+    /* Fill full width */
+    height: auto;
+    object-fit: cover;
+    /* or contain, depending on image aspect ratio vs width */
+    z-index: -1;
+    /* Behind text - User Request: Lowest Z-Index */
+    pointer-events: none;
+}
+
+/* Gradient Background Layer for Animation */
+.contact-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient from Step 3735 */
+    background: radial-gradient(circle at 50% 40%, #C1C1C0 0%, #707070 100%);
+    z-index: 0;
+}
+
+/* Noise Overlay */
+.contact-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Noise Pattern */
+    background-image: url('../assets/img/noise.png');
+    background-repeat: repeat;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    /* Soften noise blend */
+    /* Subtle noise */
+    pointer-events: none;
+    z-index: 1;
+}
+
 
 /* Container */
 .contact-container {
@@ -25,6 +69,8 @@
     align-items: center;
     text-align: center;
     position: relative;
+    z-index: 2;
+    /* Ensure above noise */
     height: 100%;
 }
 
@@ -81,7 +127,7 @@
     text-transform: uppercase;
 
     /* User request: margin-top 950px */
-    margin-top: 950px;
+    margin-top: 500px;
     /* Slightly reduced to fit screen better, but kept large */
     z-index: 5;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -97,14 +143,17 @@
     text-transform: uppercase;
 
     /* User request: margin-top 450px within context */
-    margin-top: 450px;
+    margin-top: 300px;
     z-index: 5;
 }
 
 /* Footer Group */
 .contact-footer-group {
+    position: relative;
+    z-index: 5;
+    /* Ensure above image */
     width: 100%;
-    margin-top: 300px;
+    margin-top: 132px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

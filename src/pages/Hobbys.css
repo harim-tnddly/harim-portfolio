@@ -51,9 +51,9 @@
 
 .hobbys-container {
     display: flex;
-    gap: 120px;
+    gap: 3%;
     /* Space between cards */
-    padding: 0 150px 50px 0;
+    padding: 0 100px 50px 0;
     /* Space for shadow/overflow */
     width: max-content;
     /* Ensure horizontal scroll */
@@ -148,10 +148,12 @@
 }
 
 .hobby-desc {
-    color: #FFF;
+    color: #CFD0D4;
     font-family: 'Pretendard', sans-serif;
     font-size: 16px;
     font-style: normal;
+    text-indent: 5px;
+    /* Indent about one space */
     font-weight: 300;
     line-height: 130%;
     /* 20.8px */
