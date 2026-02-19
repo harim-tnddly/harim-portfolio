@@ -224,7 +224,7 @@
 
 .skill-card {
     width: 31.7%;
-    height: 68vh;
+    height: 100%;
     background: #080808;
     border: 1px solid #1a1a1a;
     padding: 16px;
@@ -267,7 +267,6 @@
     object-fit: contain;
 }
 
-/* 스킬 이름 (카드 하단 좌측) */
 .skill-name {
     color: #fff;
     font-family: 'Pretendard', sans-serif !important;
@@ -275,13 +274,13 @@
     line-height: 100%;
     letter-spacing: -1px;
     text-transform: lowercase;
-    margin: 0;
+    margin-bottom: 20px;
+    min-height: 5.4vw;
+    /* 2줄 분량의 높이 확보 */
+    display: flex;
+    align-items: flex-start;
+    /* 1줄일 때도 위쪽부터 시작하도록 수정 */
     white-space: pre-wrap;
-}
-
-@media screen and (max-width: 1600px) {
-    .skill-card {height: 65vh;}
-    
 }
 
 @media screen and (max-width: 1500px) {
@@ -328,7 +327,7 @@
     }
 
     .skill-card {
-        height: 60vh;
+        height: 100%;
     }
 }
 
@@ -350,7 +349,7 @@
     }
 
     .skill-card {
-        height: 55vh;
+        height: 100%;
     }
 
     .skills-container {
@@ -362,20 +361,15 @@
         padding-left: 100px;
     }
 }
-@media screen and (max-width: 1300px) {
-    .skill-card {
-        height: 52vh;
-    }
-}
 
 @media screen and (max-width: 1200px) {
     .skill-card {
-        height: 47vh;
+        height: 100%;
     }
 }
 
 @media screen and (max-width: 1024px) {
     .skill-card {
-        height: 40vh;
+        height: 100%;
     }
 }
