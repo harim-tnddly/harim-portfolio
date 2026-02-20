@@ -163,7 +163,7 @@
 }
 
 .planet-node img {
-    width: 80px;
+    width: 60px;
     /* Default size for all planets */
     transition: width 0.3s ease;
 }
@@ -171,7 +171,7 @@
 .planet-label {
     color: #FFF;
     font-family: 'Squarea', sans-serif !important;
-    font-size: 2.1vw;
+    font-size: 1.8vw;
     font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.8px;
@@ -211,7 +211,7 @@
 }
 
 .planet-node.active img {
-    width: 100px;
+    width: 80px;
     /* Active planet is larger */
 }
 

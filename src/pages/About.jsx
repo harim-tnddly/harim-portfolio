@@ -92,7 +92,7 @@ const About = () => {
                     <div className="left">
                         <img src={circles2Img} alt="" className="deco-circles2" />
                         <p className="intro-strong">
-                            사용자의 여정을 더 넓은 우주로 확장시키는 디자이너, 하림
+                            유영하듯 흐르는 경험을 설계하는 디자이너, 하림
                         </p>
                         <div className="intro-body">
                             <p>
